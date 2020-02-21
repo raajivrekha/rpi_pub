@@ -30,7 +30,8 @@ FILE_OUTPUT="inventory.txt"
 # Use NMAP to quickly discover raspberry pi's on the provided network
 # via the first 24 bits of MAC addresses.
 echo "Executing $VAR_SCRIPT_NAME" from "$VAR_SCRIPT_LOC"
-sudo nmap -sP -n --scan-delay "1s" "$VAR_CIDR" | grep -B 2 "B8:27:EB" | grep -v "Host is up" | grep -v "\-\-" | grep -v "MAC" | cut -d ' ' -f5 | sudo tee -i -a "$FILE_OUTPUT" 
+sudo nmap -sP -n --scan-delay "1s" "$VAR_CIDR" | grep -B 2 "B8:27:EB" | \
+grep -v "Host is up" | grep -v "\-\-" | grep -v "MAC" | cut -d ' ' -f5 | sudo tee -i -a "$FILE_OUTPUT" 
 
 # Use sort with the unique flag to sort the list of IP's that is generated
 # Previous NMAP outputs using 'tee' and the 'append' flag
