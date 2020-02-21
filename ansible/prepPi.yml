@@ -1,0 +1,12 @@
+---
+
+- hosts: pitest
+  gather_facts: True
+  roles:
+    - { role: os_base }
+    - { role: os_kernel }
+    - { role: os_base_packages }
+    - { role: os_services }
+    #- { role: selinux, tags: selinux }
+    #- { role: httpd, tags: httpd }
+    #- { role: resolver, tags: resolver }

@@ -1,0 +1,6 @@
+[pi_prod]
+192.168.3.252 ansible_user=pi
+192.168.3.253 ansible_user=pi
+
+[pitest]
+192.168.3.215 ansible_user=pi

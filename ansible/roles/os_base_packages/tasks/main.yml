@@ -1,0 +1,29 @@
+---
+# tasks file for os_base_packages
+
+- name: Install OS Base Packages
+  become: yes
+  apt: 
+    install_recommends: yes
+    name: "{{ packages }}"
+    state: present
+    #dpkg_options: 'force-confnew'
+  vars:
+    packages:
+      - aptitude
+      - apt-transport-https
+      - raspberrypi-kernel-headers
+      - dkms
+      - debian-archive-keyring
+      - console-data
+      - xkbset
+      - locales-all
+      - dnsutils
+      - screen
+      - rsync
+      - wget
+      - curl
+      - vim
+      - git
+      - ttf-mscorefonts-installer
+    tags: basepackages
