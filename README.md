@@ -29,4 +29,6 @@ ansible-playbook -i inventory prepPi.yml
 * Include -tags "ssh" as an example to see it just do the SSH configurations
 
 
-
+## References and Sources
+* Jeff Geerling - https://www.jeffgeerling.com/
+* Lynis Security Auditing Tool - https://cisofy.com/lynis/
