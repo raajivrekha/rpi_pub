@@ -26,7 +26,7 @@ git clone git@github.com:raajivrekha/rpi_pub.git
 cd rpi_pub/ansible
 ansible-playbook -i inventory prepPi.yml 
 * Include -vv at the end to see more output
-* Include -tags "ssh" as an example to see it just do the SSH configurations
+* Include --tags "ssh" as an example to see it just do the SSH configurations
 
 
 ## References and Sources
