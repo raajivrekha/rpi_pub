@@ -32,3 +32,6 @@ ansible-playbook -i inventory prepPi.yml
 ## References and Sources
 * Jeff Geerling - https://www.jeffgeerling.com/
 * Lynis Security Auditing Tool - https://cisofy.com/lynis/
+* Kyber MultiQueue I/O
+** https://lwn.net/Articles/720071/
+** https://lwn.net/Articles/720675/
