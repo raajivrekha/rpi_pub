@@ -5,6 +5,9 @@ This repository serves to create a repeatable and uniform process in efforts of 
 
 See the Features section below and give it a go. 
 
+# Why?
+I wanted to learn ansible and enjoy running pihole on two Pi Zero W's. I also test on a RPI3B+. I also wanted to harden and tweak the raspbian OS to achieve a greater level of security. Lynis is the benchmark tool which evaluated my test systems. This ansible playbook will achieve a score just above 80 (Which is pretty good). This is a healthy level that allows for continued expansion and varied use cases which doesn't sacrifice too much security.
+
 # Features
 I'll list some features of this repository and ansible setup. This can also be known as "What does this playbook do for me?". 
 
