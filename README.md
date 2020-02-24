@@ -13,30 +13,30 @@ I'll list some features of this repository and ansible setup. This can also be k
 * Setup System Localization and Language (en_US.UTF-8)
 * Setup Keyboard Layout (US)
 * Configure System Package Manager (apt)
-** Don't acquire extra languages
-** Use IPV4 for downloads
-** Don't Install "Recommends"
-** Don't Install "Suggests"
-** Don't Autoremove "RecommendsImportant"
-** Don't Autoremove "SuggestsImportant"
-** Allow apt to run non-interactively
-*** Use --force-confdef
-*** Use --force-confold
-** Setup apt cache directory (/tmp/apt)
-** Setup apt cache archive (/var/cache/apt/arhive)
+    * Don't acquire extra languages
+    * Use IPV4 for downloads
+    * Don't Install "Recommends"
+    * Don't Install "Suggests"
+    * Don't Autoremove "RecommendsImportant"
+    * Don't Autoremove "SuggestsImportant"
+    * Allow apt to run non-interactively
+        * Use --force-confdef
+        * Use --force-confold
+    * Setup apt cache directory (/tmp/apt)
+    * Setup apt cache archive (/var/cache/apt/arhive)
 * Setup System fstab file
-** Ensure Security Settings on Mountpoints and Commit (Write) time of 30 Minutes on root partition
-** Uses 'findmnt' to automatically find PARTUUID for /boot and /
-** Mounts the following mountpoints with their own settings
-*** /boot - defaults,noatime
-*** / - defaults,noatime,commit=1800
-*** /tmp - rw,bind,noatime,nodev,nosuid,noexec
-*** /opt - rw,bind,noatime,nodev,nosuid
-*** /home - rw,bind,noatime,nodev
-*** /var - rw,bind,noatime,nodev,nosuid
-*** /var/log - rw,bind,noatime,nodev,nosuid,noexec
-*** /var/tmp - rw,bind,noatime,nodev,nosuid,noexec
-*** /dev/shm - noatime,noexec,nodev,nosuid
+    * Ensure Security Settings on Mountpoints and Commit (Write) time of 30 Minutes on root partition
+    * Uses 'findmnt' to automatically find PARTUUID for /boot and /
+    * Mounts the following mountpoints with their own settings
+        * /boot - defaults,noatime
+        * / - defaults,noatime,commit=1800
+        * /tmp - rw,bind,noatime,nodev,nosuid,noexec
+        * /opt - rw,bind,noatime,nodev,nosuid
+        * /home - rw,bind,noatime,nodev
+        * /var - rw,bind,noatime,nodev,nosuid
+        * /var/log - rw,bind,noatime,nodev,nosuid,noexec
+        * /var/tmp - rw,bind,noatime,nodev,nosuid,noexec
+        *  /dev/shm - noatime,noexec,nodev,nosuid
 * Setup Systen Swap Size (256MB)
 
 ## OS Base Packages
@@ -80,16 +80,16 @@ I'll list some features of this repository and ansible setup. This can also be k
 * Disable Wi-Fi Power Savings (Pi Zero (W) and Non Pi-Zero Models)
 * Enable Kernel Hardening via Sysctl Settings (Security)
    * Kernel Randomize VA Space
-   *  IPV4 Networking Items
+   * IPV4 Networking Items
    * IPV6 Networking Items 
 * Ensure Disable of Wi-Fi PowerSave at Startup for Persistence
 * Kernel Scheduler change from deadline to kyber and with Persistence
 
 ## OS Services Setups
 * SSH
-** SSH Security Hardening
+   * SSH Security Hardening
 * RSYSLOG
-** Enable High Precision Timestamping
+   * Enable High Precision Timestamping
 
 # Pre-requirements and Assumptions
 * Your have burned latest raspbian (buster) image to SD card
