@@ -116,8 +116,9 @@ git clone git@github.com:raajivrekha/rpi_pub.git
 #### Edit the rpi_pub/ansible/prepPi.yml file to play with roles and tags, but this is optional and advanced
 
 ## Usage
-cd rpi_pub/ansible
-ansible-playbook -i inventory prepPi.yml 
+> cd rpi_pub/ansible
+> ansible-playbook -i inventory prepPi.yml 
+
 * Include -vv at the end to see more output
 * Include --tags "ssh" as an example to see it just do the SSH configurations
 
@@ -125,6 +126,6 @@ ansible-playbook -i inventory prepPi.yml
 * Jeff Geerling - https://www.jeffgeerling.com/
 * Lynis Security Auditing Tool - https://cisofy.com/lynis/
 * Kyber MultiQueue I/O
-** https://lwn.net/Articles/720071/
-** https://lwn.net/Articles/720675/
+    * https://lwn.net/Articles/720071/
+    * https://lwn.net/Articles/720675/
 * Extending the life of your Raspberry PI SD Card - https://domoticproject.com/extending-life-raspberry-pi-sd-card/
