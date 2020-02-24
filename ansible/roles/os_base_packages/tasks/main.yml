@@ -11,6 +11,7 @@
   vars:
     packages:
       - aptitude
+      - python-apt
       - apt-transport-https
       - raspberrypi-kernel-headers
       - dkms
@@ -26,4 +27,5 @@
       - vim
       - git
       - ttf-mscorefonts-installer
+      - iotop
     tags: basepackages

@@ -1,0 +1,130 @@
+---
+# tasks file for ssh service
+
+- name: Install openssh-server package (if not present)
+  become: yes
+  apt: 
+    install_recommends: yes
+    name: "{{ packages }}"
+    state: present
+    #dpkg_options: 'force-confnew'
+  vars:
+    packages:
+      - openssh-server
+  tags: ssh
+
+- name: Configure SSH Service (Port 22)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#Port(.*)'
+    line: 'Port 22'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (AddressFamily inet)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#AddressFamily(.*)'
+    line: 'AddressFamily inet'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (ListenAddress 0.0.0.0)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#ListenAddress 0.0.0.0'
+    line: 'ListenAddress 0.0.0.0'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (AllowTcpForwarding no)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#AllowTcpForwarding(.*)'
+    line: 'AllowTcpForwarding no'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (ClientAliveCountMax 2)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#ClientAliveCountMax(.*)'
+    line: 'ClientAliveCountMax 2'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (MaxAuthTries 3)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#MaxAuthTries(.*)'
+    line: 'MaxAuthTries 3'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (MaxSessions 2)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#MaxSessions(.*)'
+    line: 'MaxSessions 2'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (TCPKeepAlive no)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#TCPKeepAlive(.*)'
+    line: 'TCPKeepAlive no'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (X11Forwarding no)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^X11Forwarding(.*)'
+    line: 'X11Forwarding no'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (AllowAgentForwarding no)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#AllowAgentForwarding(.*)'
+    line: 'AllowAgentForwarding no'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (Compression no)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#Compression(.*)'
+    line: 'Compression no'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Configure SSH Service (LogLevel VERBOSE)
+  become: yes
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#LogLevel(.*)'
+    line: 'LogLevel VERBOSE'
+    validate: '/usr/sbin/sshd -T -f %s'
+  tags: ssh
+
+- name: Reload ssh
+  become: yes
+  service: 
+    name: ssh
+    state: reloaded
+  changed_when: false
+  tags: ssh

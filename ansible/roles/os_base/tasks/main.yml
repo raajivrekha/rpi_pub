@@ -12,33 +12,39 @@
   locale_gen:
     name: "{{ config_system_locale }}"
     state: present
+  tags: locale
 
 - name: Ensure localisation files for system language '{{ config_system_language }}' are available
   become: yes
   locale_gen:
     name: "{{ config_system_language }}"
     state: present
+  tags: locale
 
 - name: Get current locale and language configuration
   become: yes
   command: localectl status
   register: locale_status
   changed_when: false
+  tags: locale
 
 - name: Parse 'LANG' from current locale and language configuration
   become: yes
   set_fact:
     locale_lang: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+  tags: locale
 
 - name: Parse 'LANGUAGE' from current locale and language configuration
   become: yes
   set_fact:
     locale_language: "{{ locale_status.stdout | regex_search('LANGUAGE=([^\n]+)', '\\1') | default([locale_lang], true) | first }}"
+  tags: locale
 
 - name: Configure locale to '{{ config_system_locale }}' and language to '{{ config_system_language }}'
   become: yes
   command: localectl set-locale LANG={{ config_system_locale }} LANGUAGE={{ config_system_language }}
   changed_when: locale_lang != config_system_locale or locale_language != config_system_language
+  tags: locale
 
 - name: Set US Keyboard Layout
   become: yes
@@ -47,6 +53,7 @@
     regexp: "^XKBLAYOUT="
     line: "XKBLAYOUT=\"us\""
     state: present
+  tags: keyboard
 
 - name: Fixup APT Configs
   become: yes
@@ -64,6 +71,8 @@
           "--force-confold";
       }
 
+  tags: apt
+
 - name: Fixup APT Cache
   become: yes
   copy:
@@ -73,3 +82,54 @@
       Dir::Cache::archives "/var/cache/apt/archives";
       Dir::Cache::pkgcache "";
       Dir::Cache::srcpkgcache "";
+
+  tags: apt
+
+- name: obtain system PARTUUID for /boot
+  become: yes
+  command: "findmnt -no PARTUUID /boot"
+  register: var_part_boot
+  changed_when: false
+  tags: fstabsetup
+
+- name: Obtain system PARTUUID for /
+  become: yes
+  command: "findmnt -no PARTUUID /"
+  register: var_part_root
+  changed_when: false
+  tags: fstabsetup
+
+- name: Zero out system fstab file
+  become: yes
+  copy:
+    content: ""
+    dest: /etc/fstab
+    force: yes
+  changed_when: false
+  tags: fstabsetup
+
+- name: Setup fstab file
+  become: yes
+  copy:
+    dest: "/etc/fstab"
+    content: |
+      PARTUUID={{ var_part_boot.stdout }}  /boot     auto  defaults,noatime                    0 2
+      PARTUUID={{ var_part_root.stdout }}  /         ext4  defaults,noatime,commit=1800        0 1
+      /tmp                  /tmp      tmpfs rw,bind,noatime,nodev,nosuid,noexec 0 0
+      /opt                  /opt      tmpfs rw,bind,noatime,nodev,nosuid        0 0
+      /home                 /home     tmpfs rw,bind,noatime,nodev               0 0
+      /var                  /var      tmpfs rw,bind,noatime,nodev,nosuid        0 0
+      /var/log              /var/log  tmpfs rw,bind,noatime,nodev,nosuid,noexec 0 0
+      /var/tmp              /var/tmp  tmpfs rw,bind,noatime,nodev,nosuid,noexec 0 0
+      proc                  /proc     proc  defaults                            0 0
+      tmpfs                 /dev/shm  tmpfs noatime,noexec,nodev,nosuid         0 0
+  changed_when: false
+  tags: fstabsetup
+
+- name: Set Swap File Size (256M)
+  become: yes
+  lineinfile:
+    dest: /etc/dphys-swapfile
+    regexp: "^CONF_SWAPSIZE=(.*)"
+    line: "CONF_SWAPSIZE=256"
+  tags: swapsize

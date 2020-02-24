@@ -1,0 +1,31 @@
+---
+# tasks file for rsyslog service
+
+- name: Install rsyslog package  (if not present)
+  become: yes
+  apt: 
+    install_recommends: yes
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - rsyslog
+  tags: rsyslog
+
+- name: Configure rsyslog Service (enable high precision timestamps)
+  become: yes
+  lineinfile: 
+    dest: /etc/rsyslog.conf
+    regexp: '^#\$ActionFileDefaultTemplate(.*)'
+    line: '$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat'
+    validate: 'rsyslogd -N1 -f %s'
+    #validate: 'rsyslogd -N1 %s'
+  tags: rsyslog
+
+- name: Restart rsyslog
+  become: yes
+  service: 
+    name: rsyslog
+    state: restarted
+  changed_when: false
+  tags: rsyslog

@@ -1,6 +1,149 @@
 ---
 # tasks file for os_kernel
 
+- name: Ensure mounting of cramfs filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/cramfs.conf"
+    content: |
+      install cramfs /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of dccp filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/dccp.conf"
+    content: |
+      install dccp /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of freevxfs filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/freevxfs.conf"
+    content: |
+      install freevxfs /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of hfs filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/hfs.conf"
+    content: |
+      install hfs /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of hfsplus filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/hfsplus.conf"
+    content: |
+      install hfsplus /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of jffs2 filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/jffs2.conf"
+    content: |
+      install jffs2 /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of rds filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/rds.conf"
+    content: |
+      install rds /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of sctp filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/sctp.conf"
+    content: |
+      install sctp /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of squashfs filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/squashfs.conf"
+    content: |
+      install squashfs /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of tipc filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/tipc.conf"
+    content: |
+      install tipc /bin/true
+  tags: modprobe
+
+- name: Ensure mounting of udf filesystems is disabled
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/udf.conf"
+    content: |
+      install udf /bin/true
+  tags: modprobe
+
+- name: Disable IPV6
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/ipv6.conf"
+    content: |
+      blacklist ipv6
+  tags: modprobe
+
+- name: Disable Bluetooth
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/disable_bluetooth.conf"
+    content: |
+      blacklist hci_uart
+      blacklist hidp
+      blacklist rfcomm
+      blacklist btbcm
+      blacklist bnep
+      blacklist bluetooth
+  tags: modprobe
+
+- name: Disable FireWire
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/disable_firewire.conf"
+    content: |
+      blacklist ohci1394
+      blacklist sbp2
+      blacklist dv1394
+      blacklist raw1394
+      blacklist video1394
+      blacklist firewire-ohci
+      blacklist firewire-sbp2
+  tags: modprobe
+
+- name: Disable USB Storage
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/disable_usb-storage.conf"
+    content: |
+      blacklist usb-storage
+  tags: modprobe
+
+- name: Disable Wi-Fi Power Saving (non pi zero w models)
+  become: yes
+  copy:
+    dest: "/etc/modprobe.d/disable_wifi_powersaving.conf"
+    content: |
+      options 8192cu rtw_power_mgnt=0
+      options 8188eu rtw_power_mgnt=0
+      options 8189es rtw_power_mgnt=0
+      options 8723bs rtw_power_mgnt=0
+      options wlan_8192eu rtw_power_mgnt=0
+  tags: modprobe
+
 - name: Ensure Kernel Hardening via Sysctl is present
   become: yes
   copy:
@@ -41,117 +184,46 @@
       net.ipv6.conf.all.disable_ipv6 = 1
       net.ipv6.conf.default.disable_ipv6 = 1
       net.ipv6.conf.lo.disable_ipv6 = 1
-
-- name: Ensure mounting of cramfs filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/cramfs.conf"
-    content: |
-      install cramfs /bin/true
-
-- name: Ensure mounting of dccp filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/dccp.conf"
-    content: |
-      install dccp /bin/true
-
-- name: Ensure mounting of freevxfs filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/freevxfs.conf"
-    content: |
-      install freevxfs /bin/true
-
-- name: Ensure mounting of hfs filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/hfs.conf"
-    content: |
-      install hfs /bin/true
-
-- name: Ensure mounting of hfsplus filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/hfsplus.conf"
-    content: |
-      install hfsplus /bin/true
-
-- name: Ensure mounting of jffs2 filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/jffs2.conf"
-    content: |
-      install jffs2 /bin/true
-
-- name: Ensure mounting of rds filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/rds.conf"
-    content: |
-      install rds /bin/true
-
-- name: Ensure mounting of sctp filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/sctp.conf"
-    content: |
-      install sctp /bin/true
-
-- name: Ensure mounting of squashfs filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/squashfs.conf"
-    content: |
-      install squashfs /bin/true
-
-- name: Ensure mounting of tipc filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/tipc.conf"
-    content: |
-      install tipc /bin/true
-
-- name: Ensure mounting of udf filesystems is disabled
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/udf.conf"
-    content: |
-      install udf /bin/true
-
-- name: Disable IPV6
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/ipv6.conf"
-    content: |
-      blacklist ipv6
-
-- name: Disable Bluetooth
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/disable_bluetooth.conf"
-    content: |
-      blacklist hci_uart
-      blacklist hidp
-      blacklist rfcomm
-      blacklist btbcm
-      blacklist bnep
-      blacklist bluetooth
-
-- name: Disable Wi-Fi Power Saving
-  become: yes
-  copy:
-    dest: "/etc/modprobe.d/disable_wifi_powersaving.conf"
-    content: |
-      options 8192cu rtw_power_mgnt=0
-      options 8188eu rtw_power_mgnt=0
-      options 8189es rtw_power_mgnt=0
-      options 8723bs rtw_power_mgnt=0
-      options wlan_8192eu rtw_power_mgnt=0
+  tags: sysctl
 
 - name: Reload Sysctl Changes
   become: yes
   command: sysctl -p 
   register: sysctl_status
   changed_when: false
-  tags: sysctlreload
+  tags: sysctl
+
+- name: Disable Wi-Fi Power Savings (pi zero w models)
+  become: yes
+  lineinfile:
+    path: /etc/rc.local
+    insertbefore: '^exit 0'
+    line: '/sbin/iwconfig wlan0 power off'
+    state: present
+    backup: yes
+  tags: sysctl
+
+- name: Set Kernel Scheduler (Kyber) boot cmdline (elevator=kyber)
+  become: yes
+  replace:
+    path: /boot/cmdline.txt
+    replace: "elevator={{item}} "
+    regexp: 'elevator=[a-z]*\s?'
+  with_items:
+  - kyber
+  tags: kernelscheduler
+
+- name: Set Kernel Scheduler (Kyber) On System Already Running
+  become: yes
+  command: 'echo kyber > /sys/block/mmcblk0/queue/scheduler'
+  changed_when: false
+  tags: kernelscheduler
+
+- name: Enable Kernel Scheduler (Kyber) on Reboot (Persistent)
+  become: yes
+  lineinfile:
+    path: /etc/rc.local
+    insertbefore: '^exit 0'
+    line: 'echo kyber > /sys/block/mmcblk0/queue/scheduler'
+    state: present
+  tags: kernelscheduler
