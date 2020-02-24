@@ -79,9 +79,9 @@ I'll list some features of this repository and ansible setup. This can also be k
 * Disable Kernel USB Storage Support (Security)
 * Disable Wi-Fi Power Savings (Pi Zero (W) and Non Pi-Zero Models)
 * Enable Kernel Hardening via Sysctl Settings (Security)
- ** Kernel Randomize VA Space
- **  IPV4 Networking Items
- ** IPV6 Networking Items 
+   * Kernel Randomize VA Space
+   *  IPV4 Networking Items
+   * IPV6 Networking Items 
 * Ensure Disable of Wi-Fi PowerSave at Startup for Persistence
 * Kernel Scheduler change from deadline to kyber and with Persistence
 
