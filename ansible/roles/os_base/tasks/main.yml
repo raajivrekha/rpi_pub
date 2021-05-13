@@ -82,7 +82,6 @@
       Dir::Cache::archives "/var/cache/apt/archives";
       Dir::Cache::pkgcache "";
       Dir::Cache::srcpkgcache "";
-
   tags: apt
 
 - name: obtain system PARTUUID for /boot

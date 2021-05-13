@@ -112,12 +112,12 @@
     validate: '/usr/sbin/sshd -T -f %s'
   tags: ssh
 
-- name: Configure SSH Service (LogLevel VERBOSE)
+- name: Configure SSH Service (LogLevel ERROR)
   become: yes
   lineinfile: 
     dest: /etc/ssh/sshd_config 
     regexp: '^#LogLevel(.*)'
-    line: 'LogLevel VERBOSE'
+    line: 'LogLevel ERROR'
     validate: '/usr/sbin/sshd -T -f %s'
   tags: ssh
 
